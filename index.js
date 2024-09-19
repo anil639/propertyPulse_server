@@ -1,14 +1,16 @@
 const express = require("express");
+const dotenv = require("dotenv");
+const connectDB = require("./config/db");
+const propertyRoutes = require("./routes/propertyRoutes");
 
 const app = express();
-
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Anil");
-});
+dotenv.config();
+connectDB();
 
-const port = 8000;
+app.use("/api", propertyRoutes);
+const port = process.env.PORT;
 
 app.listen(port, () => {
   console.log(`listening on ${port}`);
